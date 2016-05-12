@@ -23,7 +23,7 @@ public class Controller {
     public Label fast;
 
     final int N = 16;
-    Integer signal[] = {6, 10, 7, 2, 10, 12, 8, 6, 1, 6, 4, 13, 11, 8, 12, 13};
+    Double signal[] = {6.0, 10.0, 7.0, 2.0, 10.0, 12.0, 8.0, 6.0, 1.0, 6.0, 4.0, 13.0, 11.0, 8.0, 12.0, 13.0};
 
     public  void initialize(){
         origin.getXAxis().setAutoRanging(true);
@@ -40,7 +40,7 @@ public class Controller {
         XYChart.Series seriesAbsolute = new XYChart.Series<>();
         seriesAbsolute.setName("Transformed Signal");
         WaveletTransform transform = new WaveletTransform();
-        Integer[] transformedSignal = transform.fastWaveletTransform(signal);
+        Double[] transformedSignal = transform.fastWaveletTransform(signal);
         for(Integer i = 0; i < N; i++){
             seriesAbsolute.getData().add(new XYChart.Data<>(i.toString(), transformedSignal[i]));
         }
@@ -50,9 +50,9 @@ public class Controller {
         reverse.getYAxis().setAutoRanging(true);
         XYChart.Series seriesReverse = new XYChart.Series<>();
         seriesReverse.setName("Restored Signal");
-        Integer[] restoredSignal = transform.reverseFastWaveletTransform(transformedSignal);
+        Double[] restoredSignal = transform.reverseFastWaveletTransform(transformedSignal);
         for(Integer i = 0; i < N; i++){
-            seriesReverse.getData().add(new XYChart.Data<>(i.toString(), signal[i]));
+            seriesReverse.getData().add(new XYChart.Data<>(i.toString(), restoredSignal[i]));
         }
         reverse.getData().add(seriesReverse);
     }

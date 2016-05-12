@@ -6,22 +6,22 @@ package sample;
 public class WaveletTransform {
 
 
-    public Integer[] fastWaveletTransform(Integer[] x) {
+    public Double[] fastWaveletTransform(Double[] x) {
         int length = x.length;
 
         if (length == 1)
             return x;
 
-        Integer[] high = new Integer[length / 2];
-        Integer[] low = new Integer[length / 2];
+        Double[] high = new Double[length / 2];
+        Double[] low = new Double[length / 2];
         for (int i = 0; i < length / 2; i++) {
             high[i] = (x[i * 2] - x[i * 2 + 1]) / 2;
             low[i] = (x[i * 2] + x[i * 2 + 1]) / 2;
         }
 
-        Integer[] subLow = fastWaveletTransform(low);
+        Double[] subLow = fastWaveletTransform(low);
 
-        Integer[] result = new Integer[length];
+        Double[] result = new Double[length];
         for(int i = 0; i < length / 2; i++) {
             result[i] =  high[i];
             result[i + length / 2] = subLow[i];
@@ -29,23 +29,23 @@ public class WaveletTransform {
         return result;
     }
 
-    public Integer[] reverseFastWaveletTransform(Integer[] x) {
+    public Double[] reverseFastWaveletTransform(Double[] x) {
         int length = x.length;
 
         if (length ==  1)
             return x;
 
-        Integer[] subX = new Integer[length / 2];
+        Double[] subX = new Double[length / 2];
         for(int i = 0; i < length / 2; i++) {
             subX[i] = x[i + length / 2];
         }
-        Integer[] temp = reverseFastWaveletTransform(subX);
+        Double[] temp = reverseFastWaveletTransform(subX);
 
-        Integer[] result = new Integer[length];
+        Double[] result = new Double[length];
         for(int i = 0; i < length / 2; i++) {
             int j = i * 2;
-            result[j] = temp[i] - x[i];
-            result[j + 1] = temp[i] + x[i];
+            result[j] = temp[i] + x[i];
+            result[j + 1] = temp[i] - x[i];
         }
         return result;
 
